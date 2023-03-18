@@ -1,0 +1,7 @@
+//Seleciona o Banco de dados
+use("sysexp");
+
+//db.estoque.find({nota: "1234"});
+//db.estoque.find({}).sort();
+//db.estoque.find({}, {produto:1 , quantidade:1});
+db.estoque.find({quantidade: {$gt:5}});
