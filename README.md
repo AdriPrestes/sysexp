@@ -8,7 +8,6 @@
 - Login
 
 ## Telas
-
 - Login
 - Coleta da Mercadoria
 - Listagem das coletas
