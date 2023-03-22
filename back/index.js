@@ -25,12 +25,22 @@ app.get("/entradas", function(req,res){
     })
 });
 
+//route
 app.get("/estoque", async function(req, res){
     const estoque = conexao.db("sysexp").collection("estoque");
     const resultado = await estoque.find({}).toArray();
     //res.send("Oi");
     res.json(resultado);
 });
+
+//route dynamic
+app.get("/estoque/:id", function(req, res){
+    //const estoque = conexao.db("sysexp").collection("estoque");
+    //const resultado = await estoque.find({}).toArray();
+    res.json(req.params);
+    //res.json(resultado);
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
