@@ -1,29 +1,12 @@
-use("sample_mflix");
+use("sysexp");
 
-//db.movies.find()
+//db.estoque.find({_id: ObjectId("641a2fe3cf5f8b1f5d9cbf44")});
 
-//db.movies.find().sort({year: -1}).limit(2)
+db.estoque.find({});
+//db.estoque.find({}).count();
+//Inserindo Campos
+//db.estoque.insertOne({ nome: "abc", idade: 123, peso: 50 });
 
-/* traz todos com ano diferentes de 2014 e 2012 zoado
-db.movies.find({
-    year: {$nin: ["2014è", "2012è"]}
-})
-        .sort({year: -1})
-        .limit(2)
-*/
+//Para Deletar Registros
+//db.estoque.deleteOne({_id: ObjectId("641a2fe3cf5f8b1f5d9cbf44")});
 
-//conta quantos registros tem no banco
-//db.movies.find().count()
-
-//altera o ano
-/*
-db.movies
-    .updateMany(
-        { year: "2014è" }, 
-        { $set: {year: 2014} }
-    )
-*/
-//Busca genero (dentro do vetor)
-db.movies.find({
-    genres: {$all: ["Crime", "Drama"]} 
-}).count()
