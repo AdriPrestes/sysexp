@@ -9,7 +9,7 @@ app.use(cors());
 
 const mongodb = require('mongodb'); // incluiu essa linha
 
-const url_mongo = "mongodb+srv://<user>:<password>@cluster0.9qxoixq.mongodb.net/?retryWrites=true&w=majority";
+const url_mongo = "mongodb+srv://adriprestes73:jr676c3ba@cluster0.9qxoixq.mongodb.net/?retryWrites=true&w=majority";
 
 const conexao = new mongodb.MongoClient(url_mongo);
 const estoque = conexao.db("sysexp").collection("estoque");
@@ -55,13 +55,3 @@ app.get("/estoque/:id", async function(req, res){
 app.listen(port, () => {
     console.log(`Rodando o servidor na porta  ${port}`)
 });
-
-/*
-var abc = function(){
-
-}
-é o mesmo que
-var abc = () =>{
-
-}
-*/
