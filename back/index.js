@@ -6,10 +6,12 @@ const csv = require('node-csv').createParser();
 var cors = require('cors')
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const mongodb = require('mongodb'); // incluiu essa linha
 
-const url_mongo = "mongodb+srv://adriprestes73:jr676c3ba@cluster0.9qxoixq.mongodb.net/?retryWrites=true&w=majority";
+const url_mongo = "mongodb+srv://<user>:<pass>@cluster0.9qxoixq.mongodb.net/?retryWrites=true&w=majority";
 
 const conexao = new mongodb.MongoClient(url_mongo);
 const estoque = conexao.db("sysexp").collection("estoque");
@@ -40,6 +42,22 @@ app.get("/estoque", async function(req, res){
     res.json(resultado);
 });
 
+app.get("/estoque-csv", async function(req, res){
+    
+    const resultado = await estoque.find({}).toArray();
+    
+    var arquivocsv = "id,nota,destino,produto,quantidade\n";
+
+    resultado.forEach(function(item) {
+        arquivocsv += item._id + "," + item.nota + "," + item.destino + ","
+                   + item.produto + "," + item.quantidade + "\n";
+    });
+
+    res.append("content-type", "text/csv");
+    res.send(arquivocsv);
+
+});
+
 //route dynamic
 app.get("/estoque/:id", async function(req, res){
     
@@ -49,6 +67,26 @@ app.get("/estoque/:id", async function(req, res){
     const resultado = await estoque.findOne({_id: id});
     res.json(resultado);
 
+});
+
+//Cadastra novo Item
+app.post("/estoque-add", async function(req, res){
+
+    const resultado = await estoque.insertOne(req.body);
+    const origem = req.get("Referer");
+    res.redirect(origem);
+
+});
+
+//Deleta Item
+app.get("/estoque-del/:id", async function(req, res){
+
+    const id = new ObjectId( req.params.id );
+    const resultado = await estoque.deleteOne({_id: id});
+    //res.json(resultado);
+    const origem = req.get("Referer");
+    res.redirect(origem);
+    
 });
 
 

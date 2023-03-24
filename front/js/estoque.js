@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     //click carregar
-    $("#btn-carregar").click(function(){
+    //$("#btn-carregar").click(function(){
         console.log("clicou");
 
         var url = "http://localhost:3000/estoque";
@@ -15,10 +15,13 @@ $(document).ready(function(){
                 var linha = "<tr>";
 
                 linha += "<td>" + index + "</td>";
-                linha += "<td>" + item.nota_fiscal + "</td>";
+                linha += "<td>" + item.nota + "</td>";
                 linha += "<td>" + item.produto + "</td>";
                 linha += "<td>" + item.quantidade + "</td>";
                 linha += "<td>" + item.destino + "</td>";
+                linha += "<td>";
+                linha += "<a href='http://localhost:3000/estoque-del/" + item._id + "' class='btn btn-danger btn-sm'>X</a>";
+                linha += "</td>";
 
                 linha += "</tr>";
 
@@ -29,6 +32,10 @@ $(document).ready(function(){
 
         });
 
-    }); // fim btn carregar
+    //}); // fim btn carregar
+
+
+
+
 
 });
