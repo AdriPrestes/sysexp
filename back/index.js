@@ -78,6 +78,26 @@ app.post("/estoque-add", async function(req, res){
 
 });
 
+//Altera Item
+app.post("/estoque-up/", async function(req, res){
+
+    const codigo = new ObjectId( req.body.codigo );
+
+    const dados = {
+        $set: {
+            nota: req.body.nota,
+            produto: req.body.produto,
+            quantidade: req.body.quantidade,
+            produto: req.body.produto
+        }
+    };
+    const resultado = await estoque.updateOne({_id: codigo}, dados);
+    const origem = req.get("Referer");
+    res.redirect(origem);
+
+});
+
+
 //Deleta Item
 app.get("/estoque-del/:id", async function(req, res){
 
