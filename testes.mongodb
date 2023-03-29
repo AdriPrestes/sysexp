@@ -2,7 +2,7 @@ use("sysexp");
 
 //db.estoque.find({_id: ObjectId("641a2fe3cf5f8b1f5d9cbf44")});
 
-db.estoque.find({});
+//db.usuarios.find({});
 //db.estoque.find({}).count();
 //Inserindo Campos
 //db.estoque.insertOne({ nome: "abc", idade: 123, peso: 50 });
@@ -10,3 +10,26 @@ db.estoque.find({});
 //Para Deletar Registros
 //db.estoque.deleteOne({_id: ObjectId("641a2fe3cf5f8b1f5d9cbf44")});
 
+
+//db.createCollection("usuarios");
+/*Inserindo Usuarios
+db.usuarios.insertOne({
+    _id: "edson@alves.com",
+    senha: "123456",
+    nome: "Edson",
+    ultimoLogin: null
+})
+*/
+/*
+db.usuarios.findOne({
+    _id: "email@emai.com",
+    senha: "123"
+});
+*/
+
+db.usuarios.findOneAndUpdate({
+    _id: "edir@prof.com",
+    senha: "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"
+},{
+    $currentDate: {ultimoLogin: true}
+});

@@ -14,11 +14,11 @@ $(document).ready(function(){
         $.post(url, form, function(retorno){
             console.log(retorno);
 
-            if(retorno.status == "erro"){
-                $("#alert-login").show();
-            } else {
+            if(retorno.status == "ok"){
                 sessionStorage.setItem("usuario", "logado");
                 location.href = "index.html";
+            } else {
+                $("#alert-login").show();
             }
         });
 

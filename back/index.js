@@ -2,7 +2,10 @@ const express = require('express')
 const app = express()
 const port = 3000;
 const csv = require('node-csv').createParser();
+const sha1 = require('sha1');
 
+const multer  = require('multer')
+const upload = multer({ dest: 'fotos/' })
 var cors = require('cors')
 
 app.use(cors());
@@ -70,7 +73,9 @@ app.get("/estoque/:id", async function(req, res){
 });
 
 //Cadastra novo Item
-app.post("/estoque-add", async function(req, res){
+app.post("/estoque-add", upload.single("fotos"), async function(req, res){
+
+    res.json(req.file);
 
     const resultado = await estoque.insertOne(req.body);
     const origem = req.get("Referer");
@@ -109,12 +114,21 @@ app.get("/estoque-del/:id", async function(req, res){
     
 });
 
-app.post("/login", function(req,res){
+app.post("/login", async function(req,res){
 
     var usuario = req.body.email;
     var senha = req.body.senha;
 
-    if(usuario == "edir"  && senha == "123"){
+    var hash = sha1(senha);
+
+    const usuarios = conexao.db("sysexp").collection("usuarios");
+
+    var logado = await usuarios.findOneAndUpdate(
+        {_id: usuario, senha: hash},
+        {$currentDate: {ultimoLogin: true}}
+    );
+
+    if(logado.value != null){
         res.send({status: "ok"});
     } else {
         res.send({status: "erro", "mensagem": "Usuário ou senha não encontrados"});

@@ -50,7 +50,7 @@
 
                 <h2>Cadastro de Entrada de Mercadoria</h2>
 
-                <form action="http://localhost:3000/estoque-add" method="post">
+                <form action="http://localhost:3000/estoque-add" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label>Nr da Nota Fiscal</label>
                         <input name="nota" type="text" class="form-control"/>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Foto da embalagem</label>
-                        <input type="file" class="form-control"/>
+                        <input name="fotos" type="file" class="form-control"/>
                     </div>
                     <button class="btn btn-primary">Cadastrar</button>
 
